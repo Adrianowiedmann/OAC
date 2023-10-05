@@ -27,24 +27,24 @@ array_length: .half 4
 
 #main do programa
 main:
-    # Pula para função ideia_round
+    # Pula para funÃ§Ã£o ideia_round
     jal ra, ideia_round
     
-    # Carrega o endereço do vetor em a1
+    # Carrega o endereÃ§o do vetor em a1
     la a1, blk_out
     
     lh a5, array_length
     
     # loop para imprimir os valores do vetor blk_out
     loop:
-    # número inteiro a imprimir em a0
+    # nÃºmero inteiro a imprimir em a0
     lh a0, 0(a1)
 
-    # Limpe o bit de sinal, se necessário
+    # Limpe o bit de sinal, se necessÃ¡rio
     li a4, 0xffff
     and a0, a0, a4
     
-    # Chamada de sistema para imprimir o número inteiro
+    # Chamada de sistema para imprimir o nÃºmero inteiro
     li a7, 1
     ecall
     
@@ -53,10 +53,10 @@ main:
     li a7, 11
     ecall
     
-    # Avança para o próximo elemento do vetor
+    # AvanÃ§a para o prÃ³ximo elemento do vetor
     addi a1, a1, 2
     
-    # Verifica se já imprimiu todos os elementos do vetor
+    # Verifica se jÃ¡ imprimiu todos os elementos do vetor
     addi a5, a5, -1
     bnez a5, loop
 
@@ -64,9 +64,9 @@ main:
     li a7, 10
     ecall
     
-#função ideia_round    
+#funÃ§Ã£o ideia_round    
 ideia_round:
-    #Carrega os endereços dos vetores
+    #Carrega os endereÃ§os dos vetores
     la a0, blk_in
     la a5, keys
     la a6, blk_out
@@ -85,11 +85,11 @@ ideia_round:
     lhu s5, 8(a5)
     lhu s6, 10(a5)
 
-    #Salvar o endereço de retorno para main na pilha
+    #Salvar o endereÃ§o de retorno para main na pilha
     addi sp, sp, -4 	#Subtrair 4 da pilha
     sw ra, 0(sp)	#Salvar o valor atual de RA na pilha
 
-    #Pula para função func_mul
+    #Pula para funÃ§Ã£o func_mul
     mv a1, t1
     mv a2, s1
     jal ra, func_mul
@@ -105,7 +105,7 @@ ideia_round:
     jal ra, lsw16
     mv t3, a1
     
-    #Pula para função func_mul
+    #Pula para funÃ§Ã£o func_mul
     mv a1, t4
     mv a2, s4
     jal ra, func_mul
@@ -123,7 +123,7 @@ ideia_round:
     jal ra, lsw16
     mv t6, a1
     
-    #Pula para função func_mul
+    #Pula para funÃ§Ã£o func_mul
     mv a1, t6
     mv a2, s6
     jal ra, func_mul
@@ -147,7 +147,7 @@ ideia_round:
     sh t3, 4(a6)
     sh t4, 6(a6)
     
-    #Recuperar endereço de retorno da pilha e retorna função
+    #Recuperar endereÃ§o de retorno da pilha e retorna funÃ§Ã£o
     lw ra, 0(sp)        
     addi sp, sp, 4
     ret
@@ -166,18 +166,18 @@ func_mul:
     	sub a4, a4, a1	#65537-x
     	sub a1, a4, a2	#(65537-x)-y
     	
-    	#verifica se a1 é maior que 65535(maior valor para 16 bits)
+    	#verifica se a1 Ã© maior que 65535(maior valor para 16 bits)
     	li a4, 65535
     	bltu a4, a1, shiftleft16
     	 
     	ret
     else:
     	li a4, 16	#x = p >> 16;
-    	srl a1, a3, a4	#operação de deslocamento à direita (right shift)
+    	srl a1, a3, a4	#operaÃ§Ã£o de deslocamento Ã  direita (right shift)
     	mv a2, a3
     	sub a1, a2, a1
     	
-    	# se x < y (a2 < a1) vai para função increment
+    	# se x < y (a2 < a1) vai para funÃ§Ã£o increment
     	bltu a2, a1, increment
     	
     	ret
@@ -187,13 +187,13 @@ increment:
     li a4, 65537
     add a1, a1, a4
 
-#Função que desloca 16 bits para esquerda
+#FunÃ§Ã£o que desloca 16 bits para esquerda
 shiftleft16:
     li a4, 16		#Quantidade de bits a serem deslocados (16 bits)
     sll a1, a1, a4
     ret
 
-#operação de máscaramento       
+#operaÃ§Ã£o de mÃ¡scaramento       
 lsw16:
     li a2, 0x0000ffff
     and a1, a1, a2
