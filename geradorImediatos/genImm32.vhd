@@ -21,7 +21,7 @@ begin
 	inst30 <= instr(30 downto 30);
 	funct3 <= instr(14 downto 12);
 
-	process (instr, opcode)
+	process (instr, opcode, instr_format)
 	begin
         	case opcode is
 
@@ -73,4 +73,3 @@ begin
 
     	end process;
 end a;
-
