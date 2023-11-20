@@ -18,8 +18,8 @@ architecture a of genImm32 is
     	signal instr_format : FORMAT_RV;
 begin
     	opcode <= unsigned(instr(6 downto 0)); -- Extrai os 7 primeiros bits menos significativos (opcode)
-	inst30 <= instr(30 downto 30);
-	funct3 <= instr(14 downto 12);
+	inst30 <= instr(30 downto 30); -- Bit 30, para vericação do caso I_type*
+	funct3 <= instr(14 downto 12); -- funct3 recebe os bits 14 a 12, para verificação do formato I_type*
 
 	process (instr, opcode, instr_format)
 	begin
@@ -54,6 +54,7 @@ begin
 				if funct3 = "101" and inst30 = "1" then
 					imm32 <= resize(signed(instr(24 downto 20)), 32);
 				else
+					-- 
 					imm32 <= resize(signed(instr(31 downto 20)), 32);
 				end if;
 
