@@ -1,2 +1,2 @@
 # OAC
-Repositório para disciplina Arquitetura e Organização de Computadores
+Repositório para disciplina Organização e Arquitetura de Computadores
